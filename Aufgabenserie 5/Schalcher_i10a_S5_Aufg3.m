@@ -1,0 +1,42 @@
+% Benutzung des Matlab-Programmes:
+% 1. eine nxn Matrix A definieren. Name muss A sein
+% 2. Script ausführen.
+
+dA = size(A);
+B=A;
+[L,U,P] = lu(A);
+
+% Testen auf n x n Matrix
+if dA(1) ~= dA(2),
+    display('A ist keine n x n Matrix!')
+    return;
+end
+
+lower = eye(dA(1));
+upper = zeros(dA(1));
+
+% Transformation durchführen
+for i=1:(dA(1)-1),
+     
+    % Prüfe ob Zeilenvertauschung nötig ist
+    if A(i,i) == 0;
+        display('Zeilenvertauschung nötig!')
+        return;
+    end
+    
+    % Links-Untere Matrix füllen mit Faktoren und Eliminationen
+    for j=i+1:dA(1),
+        lower(j,i) = (A(j,i)/A(i,i));
+        A(j,:) = A(j,:) - ((A(j,i)/A(i,i)) * A(i,:));
+    end
+end
+
+% Rechts-Obere Matrix ausrechnen
+upper = lower^(-1) * B;
+
+
+% Ausgaben
+U
+upper
+L
+lower
