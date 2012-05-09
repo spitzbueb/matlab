@@ -36,8 +36,24 @@ hold on
 plot(t,v,'o','Markersize',4);
 axis([0 6.28 -1 2]);
 ylabel(' ','fontsize',24);
-
+% Aufgabe d
+% Alles grösser 16 wird gefiltert
 figure(4)
+f=maxfilter(16,c);
+vn=f(1)*ones(1,length(x));
+for k=1:1:n
+    vn=vn+f(2*k).*cos(k.*x);
+    vn=vn+f(2*k+1).*sin(k.*x);
+end
+plot(x,vn,'LineWidth',0.1,'Color','blue');
+hold on
+plot(t,v,'o','Markersize',4);
+axis([0 6.28 -1 2]);
+ylabel(' ','fontsize',24);
+
+% Aufgabe e
+% Alles grösser 11 wird gefiltert
+figure(5)
 f=maxfilter(11,c);
 vn=f(1)*ones(1,length(x));
 for k=1:1:n
